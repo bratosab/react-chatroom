@@ -5,6 +5,7 @@ import firebase from "firebase/app";
 import "firebase/firestore";
 import "firebase/auth";
 
+import { useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useCollectionData } from "react-firebase-hooks/firestore";
 
@@ -57,6 +58,7 @@ function Room() {
   const query = messagesCollection.orderBy("date").limit(25);
 
   const [messages] = useCollectionData(query, { idField: "id" });
+  const [message, setMessage] = useState("");
 
   return (
     <>
@@ -66,6 +68,18 @@ function Room() {
             <Message key={message.id} message={message} />
           ))}
       </main>
+
+      <form>
+        <input
+          value={message}
+          onChange={(e) => setMessage(e.target.value)}
+          placeholder="Say hi!"
+        />
+
+        <button type="submit" disabled={!message}>
+          Send
+        </button>
+      </form>
     </>
   );
 }

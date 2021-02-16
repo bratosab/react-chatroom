@@ -18,7 +18,10 @@ function App() {
 
   return (
     <div className="App">
-      <header></header>
+      <header>
+        <h1>Reyact Chatroom</h1>
+        <LogOut />
+      </header>
       <section> {user ? <Room /> : <LogIn />} </section>
     </div>
   );
@@ -36,6 +39,16 @@ function LogIn() {
         Sign in using Google
       </button>
     </>
+  );
+}
+
+function LogOut() {
+  return (
+    authentication.currentUser && (
+      <button className="log-out" onClick={() => authentication.signOut()}>
+        Logout
+      </button>
+    )
   );
 }
 

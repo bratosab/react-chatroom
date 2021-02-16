@@ -1,4 +1,6 @@
-# Getting Started with Create React App
+# React chat app (Reyact chat)
+
+Live version : https://reyact-chat.web.app/
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 

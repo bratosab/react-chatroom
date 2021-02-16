@@ -5,7 +5,7 @@ import firebase from "firebase/app";
 import "firebase/firestore";
 import "firebase/auth";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useCollectionData } from "react-firebase-hooks/firestore";
 
@@ -54,6 +54,8 @@ function LogOut() {
 }
 
 function Room() {
+  const scrollAnchor = useRef();
+
   const messagesCollection = firestore.collection("messages");
   const query = messagesCollection.orderBy("date").limit(25);
 
@@ -73,6 +75,7 @@ function Room() {
     });
 
     setMessage("");
+    scrollAnchor.current.scrollIntoView({ behavior: 'smooth' });
   };
 
   return (
@@ -82,6 +85,8 @@ function Room() {
           messages.map((message) => (
             <Message key={message.id} message={message} />
           ))}
+
+        <span ref={scrollAnchor}></span>
       </main>
 
       <form onSubmit={sendMessage}>

@@ -52,6 +52,39 @@ function LogOut() {
   );
 }
 
-function Room() {}
+function Room() {
+  const messagesCollection = firestore.collection("messages");
+  const query = messagesCollection.orderBy("date").limit(25);
+
+  const [messages] = useCollectionData(query, { idField: "id" });
+
+  return (
+    <>
+      <main>
+        {messages &&
+          messages.map((message) => (
+            <Message key={message.id} message={message} />
+          ))}
+      </main>
+    </>
+  );
+}
+
+function Message(props) {
+  const { text, userId } = props.message;
+
+  const messageClass =
+    userId === authentication.currentUser.uid
+      ? "message--sent"
+      : "message--received";
+
+  return (
+    <>
+      <div className={`message ${messageClass}`}>
+        <p>{text}</p>
+      </div>
+    </>
+  );
+}
 
 export default App;

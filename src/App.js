@@ -69,6 +69,7 @@ function Room() {
       text: message,
       date: firebase.firestore.FieldValue.serverTimestamp(),
       userId: currentUser.uid,
+      avatar: currentUser.photoURL,
     });
 
     setMessage("");
@@ -99,7 +100,7 @@ function Room() {
 }
 
 function Message(props) {
-  const { text, userId } = props.message;
+  const { text, userId, avatar } = props.message;
 
   const messageClass =
     userId === authentication.currentUser.uid
@@ -109,6 +110,13 @@ function Message(props) {
   return (
     <>
       <div className={`message ${messageClass}`}>
+        <img
+          alt="avatar"
+          src={
+            avatar ||
+            "https://avatars.dicebear.com/4.5/api/human/reyact-chat.svg?w=96&h=96"
+          }
+        />
         <p>{text}</p>
       </div>
     </>

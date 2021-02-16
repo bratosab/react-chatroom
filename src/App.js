@@ -60,6 +60,20 @@ function Room() {
   const [messages] = useCollectionData(query, { idField: "id" });
   const [message, setMessage] = useState("");
 
+  const sendMessage = async (e) => {
+    e.preventDefault();
+
+    const currentUser = authentication.currentUser;
+
+    await messagesCollection.add({
+      text: message,
+      date: firebase.firestore.FieldValue.serverTimestamp(),
+      userId: currentUser.uid,
+    });
+
+    setMessage("");
+  };
+
   return (
     <>
       <main>
@@ -69,7 +83,7 @@ function Room() {
           ))}
       </main>
 
-      <form>
+      <form onSubmit={sendMessage}>
         <input
           value={message}
           onChange={(e) => setMessage(e.target.value)}

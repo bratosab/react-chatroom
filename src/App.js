@@ -10,15 +10,35 @@ import { useCollectionData } from "react-firebase-hooks/firestore";
 
 firebase.initializeApp(config);
 
-const auth = firebase.auth();
+const authentication = firebase.auth();
 const firestore = firebase.firestore();
 
 function App() {
+  const [user] = useAuthState(authentication);
+
   return (
     <div className="App">
-      <header className="App-header"></header>
+      <header></header>
+      <section> {user ? <Room /> : <LogIn />} </section>
     </div>
   );
 }
+
+function LogIn() {
+  const googleLogIn = () => {
+    const provider = new firebase.auth.GoogleAuthProvider();
+    authentication.signInWithPopup(provider);
+  };
+
+  return (
+    <>
+      <button className="log-in" onClick={googleLogIn}>
+        Sign in using Google
+      </button>
+    </>
+  );
+}
+
+function Room() {}
 
 export default App;

@@ -1,6 +1,6 @@
 # React chat app (Reyact chat)
 
-Live version : https://reyact-chat.web.app/
+Live version : https://reyact-chat.firebaseapp.com/
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
